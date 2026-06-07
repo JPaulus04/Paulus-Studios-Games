@@ -1,615 +1,538 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Last Stand Command — Support</title>
+<title>Paulus Games — Mobile Games Studio</title>
+<meta name="description" content="Indie mobile games for iOS. Last Stand Command and God Prodigy — built for players who want depth." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
 <style>
-  :root {
-    --bg:      #090c0d;
-    --surface: #0f1416;
-    --panel:   #131a1c;
-    --border:  #1c2629;
-    --olive:   #5c6e30;
-    --olive2:  #7d9040;
-    --amber:   #c97d20;
-    --amber2:  #e99b38;
-    --red:     #a83228;
-    --green:   #3d8b4a;
-    --blue:    #2e6a8c;
-    --text:    #b8c4b8;
-    --muted:   #4d5f4d;
-    --white:   #dde6dd;
-    --mono:    'Share Tech Mono', monospace;
-    --display: 'Bebas Neue', sans-serif;
-    --body:    'Barlow', sans-serif;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--body);
-    font-size: 16px;
-    line-height: 1.7;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px);
-    pointer-events: none; z-index: 900;
-  }
-
-  header {
-    background: linear-gradient(160deg, #0d1416 0%, #090c0d 100%);
-    border-bottom: 1px solid var(--olive);
-    position: relative;
-    overflow: hidden;
-  }
-
-  header::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 80% at 50% -10%, rgba(93,110,48,0.12) 0%, transparent 70%),
-      repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.01) 80px, rgba(255,255,255,0.01) 81px),
-      repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255,255,255,0.01) 80px, rgba(255,255,255,0.01) 81px);
-    pointer-events: none;
-  }
-
-  .header-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 40px 36px 34px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 24px;
-    position: relative; z-index: 1;
-  }
-
-  .h-left {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--olive2);
-    text-transform: uppercase;
-    line-height: 2;
-  }
-
-  .h-left strong { color: var(--amber); display: block; font-size: 11px; }
-
-  .logo-center { text-align: center; }
-
-  .shield {
-    width: 70px; height: 70px;
-    margin: 0 auto 14px;
-    display: block;
-  }
-
-  .game-title {
-    font-family: var(--display);
-    font-size: 58px;
-    letter-spacing: 0.05em;
-    line-height: 0.95;
-    color: var(--white);
-    text-shadow: 0 2px 40px rgba(201,125,32,0.35), 0 0 80px rgba(201,125,32,0.1);
-  }
-
-  .game-sub {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.35em;
-    color: var(--amber);
-    text-transform: uppercase;
-    margin-top: 6px;
-  }
-
-  .h-right {
-    text-align: right;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    line-height: 2.1;
-    text-transform: uppercase;
-  }
-
-  .online { color: #5cb85c; }
-  .online::before {
-    content: '';
-    display: inline-block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #5cb85c;
-    margin-right: 6px;
-    box-shadow: 0 0 6px #5cb85c;
-    animation: blink 2.5s infinite;
-    vertical-align: middle;
-  }
-
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-  .ticker-bar {
-    background: var(--olive);
-    border-top: 1px solid var(--olive2);
-    padding: 6px 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .ticker-track {
-    display: inline-block;
-    animation: scroll-ticker 35s linear infinite;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: bold;
-    color: #0a0d0a;
-    letter-spacing: 0.15em;
-  }
-
-  @keyframes scroll-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-  nav {
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-    position: sticky; top: 0; z-index: 200;
-  }
-
-  .nav-wrap {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 36px;
-    display: flex;
-    align-items: center;
-    gap: 0;
-  }
-
-  nav a {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 15px 22px;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-    display: block;
-  }
-
-  nav a:hover, nav a.active {
-    color: var(--amber2);
-    border-bottom-color: var(--amber2);
-  }
-
-  .nav-divider {
-    width: 1px; height: 16px;
-    background: var(--border);
-    margin: 0 4px;
-  }
-
-  main {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 64px 36px 96px;
-  }
-
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .eyebrow::before {
-    content: '';
-    display: block;
-    width: 22px; height: 1px;
-    background: var(--amber);
-  }
-
-  h2 {
-    font-family: var(--display);
-    font-size: 46px;
-    letter-spacing: 0.04em;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 36px;
-  }
-
-  .section { margin-bottom: 88px; animation: fadeUp 0.5s ease both; }
-  .section:nth-child(2) { animation-delay: 0.05s; }
-  .section:nth-child(3) { animation-delay: 0.1s; }
-  .section:nth-child(4) { animation-delay: 0.15s; }
-  .section:nth-child(5) { animation-delay: 0.2s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .quick-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .quick-card {
-    background: var(--surface);
-    padding: 30px 24px 28px;
-    text-align: center;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    transition: background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .quick-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--amber);
-    transform: scaleX(0);
-    transition: transform 0.25s;
-  }
-
-  .quick-card:hover { background: #141c1f; }
-  .quick-card:hover::after { transform: scaleX(1); }
-
-  .qc-icon { font-size: 32px; margin-bottom: 12px; display: block; }
-
-  .qc-label {
-    font-family: var(--display);
-    font-size: 20px;
-    letter-spacing: 0.07em;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-
-  .qc-desc {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .faq-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-
-  details {
-    background: var(--surface);
-    transition: background 0.2s;
-  }
-
-  details[open] { background: #141c1f; }
-
-  summary {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 22px 26px;
-    cursor: pointer;
-    list-style: none;
-    font-size: 15px;
-    color: var(--white);
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  summary::-webkit-details-marker { display: none; }
-  summary:hover { color: var(--amber2); }
-
-  .faq-num {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--olive2);
-    letter-spacing: 0.1em;
-    flex-shrink: 0;
-    margin-top: 2px;
-    width: 32px;
-  }
-
-  .faq-chevron {
-    margin-left: auto;
-    flex-shrink: 0;
-    font-size: 14px;
-    color: var(--muted);
-    transition: transform 0.25s;
-    margin-top: 2px;
-  }
-
-  details[open] .faq-chevron { transform: rotate(90deg); color: var(--amber); }
-
-  .faq-body {
-    padding: 0 26px 22px 74px;
-    font-size: 14px;
-    color: var(--text);
-    line-height: 1.75;
-  }
-
-  .status-board {
-    background: var(--surface);
-    border: 1px solid var(--border);
-  }
-
-  .status-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .status-title {
-    font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--amber2);
-  }
-
-  .all-clear {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: #5cb85c;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .status-row {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .status-row:last-child { border-bottom: none; }
-
-  .status-name { font-size: 14px; color: var(--text); }
-
-  .status-since {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-
-  .badge {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border: 1px solid;
-  }
-
-  .badge-ok { color: #5cb85c; border-color: #5cb85c; }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .contact-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 36px 32px;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.25s;
-  }
-
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--amber);
-  }
-
-  .contact-card:hover { border-color: var(--amber); }
-
-  .cc-icon { font-size: 28px; margin-bottom: 14px; display: block; }
-
-  .contact-card h3 {
-    font-family: var(--display);
-    font-size: 28px;
-    letter-spacing: 0.06em;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-
-  .contact-card p {
-    font-size: 14px;
-    color: var(--muted);
-    margin-bottom: 24px;
-    line-height: 1.65;
-  }
-
-  .btn {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 12px 26px;
-    border: 1px solid var(--amber);
-    color: var(--amber);
-    text-decoration: none;
-    cursor: pointer;
-    background: transparent;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .btn:hover { background: var(--amber); color: #090c0d; }
-
-  .btn-solid {
-    background: var(--amber);
-    color: #090c0d;
-    font-weight: 600;
-  }
-
-  .btn-solid:hover { background: var(--amber2); border-color: var(--amber2); }
-
-  .legal-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 36px 40px;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.8;
-  }
-
-  .legal-box h3 {
-    font-family: var(--display);
-    font-size: 24px;
-    letter-spacing: 0.06em;
-    color: var(--white);
-    margin-bottom: 14px;
-  }
-
-  .legal-box a { color: var(--amber2); text-decoration: none; }
-  .legal-box a:hover { text-decoration: underline; }
-
-  footer {
-    background: var(--panel);
-    border-top: 1px solid var(--border);
-    padding: 32px 36px;
-  }
-
-  .footer-inner {
-    max-width: 1120px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-
-  .footer-logo {
-    font-family: var(--display);
-    font-size: 22px;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    opacity: 0.6;
-  }
-
-  .footer-info {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-align: center;
-    line-height: 2;
-    text-transform: uppercase;
-  }
-
-  .footer-links { display: flex; gap: 24px; }
-
-  .footer-links a {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--amber2); }
-
-  @media (max-width: 820px) {
-    .header-inner { grid-template-columns: 1fr; text-align: center; gap: 12px; }
-    .h-left, .h-right { text-align: center; }
-    .game-title { font-size: 42px; }
-    .quick-grid { grid-template-columns: 1fr 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .footer-inner { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; }
-    h2 { font-size: 36px; }
-    main { padding: 48px 20px 72px; }
-  }
-
-  @media (max-width: 520px) {
-    .quick-grid { grid-template-columns: 1fr; }
-    .status-row { grid-template-columns: 1fr auto; }
-    .status-since { display: none; }
-  }
+/* ── Design tokens (studio palette — dark military/amber) ─────────── */
+:root {
+  --bg:       #090c0d;
+  --surface:  #0f1416;
+  --panel:    #131a1c;
+  --border:   #1c2629;
+  --olive:    #5c6e30;
+  --olive2:   #7d9040;
+  --amber:    #c97d20;
+  --amber2:   #e99b38;
+  --gold:     #d4af37;
+  --red:      #a83228;
+  --green:    #3d8b4a;
+  --blue:     #2e6a8c;
+  --purple:   #7a39bb;
+  --text:     #b8c4b8;
+  --muted:    #4d5f4d;
+  --white:    #dde6dd;
+  --mono:     'Share Tech Mono', monospace;
+  --display:  'Bebas Neue', sans-serif;
+  --body:     'Barlow', sans-serif;
+
+  --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --text-3xl:  clamp(2.5rem, 1rem + 4vw, 5rem);
+
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-font-smoothing: antialiased; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+a, button { transition: color var(--transition), background var(--transition), border-color var(--transition), opacity var(--transition); }
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+
+/* ── Scanline overlay ──────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.05) 3px, rgba(0,0,0,0.05) 4px);
+  pointer-events: none; z-index: 900;
+}
+
+/* ── Header ────────────────────────────────────────────────────────── */
+header {
+  background: linear-gradient(160deg, #0d1416 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--olive);
+  position: relative; overflow: hidden;
+}
+header::after {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 90% at 50% -10%, rgba(201,125,32,0.08) 0%, transparent 65%),
+    repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255,255,255,0.008) 80px, rgba(255,255,255,0.008) 81px),
+    repeating-linear-gradient(0deg,  transparent, transparent 80px, rgba(255,255,255,0.008) 80px, rgba(255,255,255,0.008) 81px);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding: var(--space-10) var(--space-8) var(--space-8);
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: var(--space-6);
+  position: relative; z-index: 1;
+}
+.h-left {
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.2em; color: var(--olive2);
+  text-transform: uppercase; line-height: 2;
+}
+.h-left strong { color: var(--amber); display: block; font-size: var(--text-xs); }
+.logo-center { text-align: center; }
+
+/* Studio SVG logo */
+.studio-logo { margin: 0 auto var(--space-4); display: block; }
+
+.studio-name {
+  font-family: var(--display);
+  font-size: var(--text-3xl);
+  letter-spacing: 0.06em; line-height: 0.9;
+  color: var(--white);
+  text-shadow: 0 2px 40px rgba(201,125,32,0.3), 0 0 80px rgba(201,125,32,0.08);
+}
+.studio-sub {
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.4em; color: var(--amber);
+  text-transform: uppercase; margin-top: var(--space-2);
+}
+.h-right {
+  text-align: right; font-family: var(--mono);
+  font-size: var(--text-xs); color: var(--muted);
+  letter-spacing: 0.12em; line-height: 2.1; text-transform: uppercase;
+}
+.online { color: #5cb85c; }
+.online::before {
+  content: ''; display: inline-block;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #5cb85c; margin-right: 6px;
+  box-shadow: 0 0 6px #5cb85c;
+  animation: blink 2.5s infinite; vertical-align: middle;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+/* ── Ticker ────────────────────────────────────────────────────────── */
+.ticker-bar {
+  background: var(--olive); border-top: 1px solid var(--olive2);
+  padding: 6px 0; overflow: hidden; white-space: nowrap;
+}
+.ticker-track {
+  display: inline-block;
+  animation: scroll-ticker 50s linear infinite;
+  font-family: var(--mono); font-size: 11px; font-weight: bold;
+  color: #0a0d0a; letter-spacing: 0.15em;
+}
+@keyframes scroll-ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ── Nav ────────────────────────────────────────────────────────────── */
+nav {
+  background: var(--panel); border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 200;
+}
+.nav-wrap {
+  max-width: 1120px; margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: flex; align-items: center; gap: 0;
+}
+nav a {
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+  padding: 15px 20px; border-bottom: 2px solid transparent;
+  display: block;
+}
+nav a:hover, nav a.active { color: var(--amber2); border-bottom-color: var(--amber2); }
+.nav-divider { width: 1px; height: 16px; background: var(--border); margin: 0 2px; }
+
+/* ── Main layout ────────────────────────────────────────────────────── */
+main { max-width: 1120px; margin: 0 auto; padding: var(--space-16) var(--space-8) var(--space-24); }
+
+.eyebrow {
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: var(--space-3);
+  display: flex; align-items: center; gap: var(--space-3);
+}
+.eyebrow::before {
+  content: ''; display: block; width: 22px; height: 1px; background: var(--amber);
+}
+.section-title {
+  font-family: var(--display); font-size: var(--text-2xl);
+  letter-spacing: 0.04em; color: var(--white);
+  line-height: 1; margin-bottom: var(--space-10);
+}
+.section { margin-bottom: var(--space-24); animation: fadeUp 0.5s ease both; }
+.section:nth-child(2) { animation-delay: 0.05s; }
+.section:nth-child(3) { animation-delay: 0.1s; }
+.section:nth-child(4) { animation-delay: 0.15s; }
+.section:nth-child(5) { animation-delay: 0.2s; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── Games Grid ─────────────────────────────────────────────────────── */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.game-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.game-card:hover { border-color: var(--amber); transform: translateY(-2px); }
+
+.game-card-banner {
+  height: 180px; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.game-card-banner-lsc {
+  background: linear-gradient(135deg, #0d1416 0%, #1a2a1a 40%, #0f2012 100%);
+}
+.game-card-banner-gp {
+  background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #0d0d20 100%);
+}
+.game-card-banner::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(255,255,255,0.015) 12px, rgba(255,255,255,0.015) 13px);
+  pointer-events: none;
+}
+
+/* LSC tactical grid overlay */
+.banner-tactical {
+  position: absolute; inset: 0; opacity: 0.15;
+  background:
+    repeating-linear-gradient(90deg, transparent, transparent 40px, var(--olive) 40px, var(--olive) 41px),
+    repeating-linear-gradient(0deg,  transparent, transparent 40px, var(--olive) 40px, var(--olive) 41px);
+}
+/* God Prodigy star field */
+.banner-stars { position: absolute; inset: 0; overflow: hidden; }
+.star {
+  position: absolute; border-radius: 50%; background: #fff;
+  animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
+}
+@keyframes twinkle { 0%,100%{opacity:var(--hi, 0.8)} 50%{opacity:var(--lo, 0.2)} }
+
+.game-icon-wrap {
+  position: relative; z-index: 1;
+  width: 90px; height: 90px; border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+}
+.game-icon-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.game-icon-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+}
+.game-icon-lsc { background: linear-gradient(135deg, #1a2e1a, #2d4a1a); }
+.game-icon-gp  { background: linear-gradient(135deg, #0d0d1a, #1a0a2e); }
+
+.game-card-body { padding: var(--space-6); flex: 1; display: flex; flex-direction: column; }
+
+.game-status-row {
+  display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);
+}
+.game-badge {
+  font-family: var(--mono); font-size: 9px; font-weight: bold;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 3px 10px; border: 1px solid;
+}
+.badge-live   { color: #5cb85c; border-color: #5cb85c; }
+.badge-coming { color: var(--amber); border-color: var(--amber); }
+.badge-genre  { color: var(--muted); border-color: var(--border); }
+
+.game-title {
+  font-family: var(--display); font-size: var(--text-xl);
+  letter-spacing: 0.05em; color: var(--white);
+  line-height: 1; margin-bottom: var(--space-2);
+}
+.game-tagline {
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: var(--space-4);
+}
+.game-desc {
+  font-size: var(--text-sm); color: var(--text);
+  line-height: 1.7; margin-bottom: var(--space-6); flex: 1;
+}
+
+.game-features {
+  display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-6);
+}
+.feature-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 3px 9px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+  color: var(--muted); border-radius: 2px;
+}
+
+.game-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 11px 20px; border: 1px solid var(--amber);
+  color: var(--amber); text-decoration: none;
+  cursor: pointer; background: transparent;
+}
+.btn:hover { background: var(--amber); color: var(--bg); }
+.btn-solid { background: var(--amber); color: var(--bg); font-weight: 600; }
+.btn-solid:hover { background: var(--amber2); border-color: var(--amber2); }
+.btn-ghost { border-color: var(--border); color: var(--muted); }
+.btn-ghost:hover { border-color: var(--amber); color: var(--amber); background: transparent; }
+
+/* God Prodigy card accent color overrides */
+.game-card-gp .game-tagline { color: var(--gold); }
+.game-card-gp .btn { border-color: var(--gold); color: var(--gold); }
+.game-card-gp .btn:hover { background: var(--gold); color: var(--bg); }
+.game-card-gp .btn-solid { background: var(--gold); color: var(--bg); }
+.game-card-gp .btn-solid:hover { background: #e8c84a; border-color: #e8c84a; }
+.game-card-gp .eyebrow-inline { color: var(--gold); }
+
+/* ── Studio Stats Bar ──────────────────────────────────────────────── */
+.stats-bar {
+  background: var(--surface); border: 1px solid var(--border);
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  margin-bottom: var(--space-16);
+}
+.stat-cell {
+  padding: var(--space-6) var(--space-6);
+  text-align: center;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.stat-cell:last-child { border-right: none; }
+.stat-value {
+  font-family: var(--display); font-size: var(--text-xl);
+  color: var(--white); letter-spacing: 0.05em; line-height: 1;
+  margin-bottom: var(--space-2);
+}
+.stat-label {
+  font-family: var(--mono); font-size: var(--text-xs);
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+}
+.stat-accent { color: var(--amber); }
+
+/* ── Support section ────────────────────────────────────────────────── */
+.support-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+.support-card {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: var(--space-8) var(--space-8);
+  position: relative; overflow: hidden;
+  transition: border-color var(--transition);
+}
+.support-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%; background: var(--amber);
+}
+.support-card.gp-card::before { background: var(--gold); }
+.support-card:hover { border-color: var(--amber); }
+.support-card.gp-card:hover { border-color: var(--gold); }
+.support-card-icon { font-size: 26px; margin-bottom: var(--space-4); }
+.support-card h3 {
+  font-family: var(--display); font-size: var(--text-lg);
+  letter-spacing: 0.06em; color: var(--white); margin-bottom: var(--space-2);
+}
+.support-card p { font-size: var(--text-sm); color: var(--muted); margin-bottom: var(--space-6); line-height: 1.65; }
+
+/* ── FAQ ────────────────────────────────────────────────────────────── */
+.faq-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+details { background: var(--surface); }
+details[open] { background: #141c1f; }
+summary {
+  display: flex; align-items: flex-start; gap: var(--space-4);
+  padding: var(--space-6) var(--space-6); cursor: pointer;
+  list-style: none; font-size: var(--text-sm); color: var(--white); font-weight: 500;
+}
+summary::-webkit-details-marker { display: none; }
+summary:hover { color: var(--amber2); }
+.faq-game-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 7px; border: 1px solid;
+  flex-shrink: 0; margin-top: 2px; align-self: flex-start;
+}
+.faq-game-lsc { color: var(--olive2); border-color: var(--olive2); }
+.faq-game-gp  { color: var(--gold);   border-color: var(--gold); }
+.faq-chevron {
+  margin-left: auto; flex-shrink: 0; font-size: 14px;
+  color: var(--muted); transition: transform 0.25s; margin-top: 2px;
+}
+details[open] .faq-chevron { transform: rotate(90deg); color: var(--amber); }
+.faq-body {
+  padding: 0 var(--space-6) var(--space-6) var(--space-10);
+  font-size: var(--text-sm); color: var(--text); line-height: 1.75;
+}
+
+/* ── Status board ──────────────────────────────────────────────────── */
+.status-board { background: var(--surface); border: 1px solid var(--border); }
+.status-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border);
+}
+.status-title { font-family: var(--mono); font-size: var(--text-xs); letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber2); }
+.all-clear { font-family: var(--mono); font-size: var(--text-xs); color: #5cb85c; letter-spacing: 0.12em; text-transform: uppercase; }
+.status-row {
+  display: grid; grid-template-columns: auto 1fr auto auto;
+  align-items: center; gap: var(--space-4);
+  padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--border);
+}
+.status-row:last-child { border-bottom: none; }
+.status-game-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-lsc { background: var(--olive2); }
+.dot-gp  { background: var(--gold); }
+.status-name { font-size: var(--text-sm); color: var(--text); }
+.status-since { font-family: var(--mono); font-size: var(--text-xs); color: var(--muted); letter-spacing: 0.08em; }
+.badge-ok { font-family: var(--mono); font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; padding: 3px 10px; border: 1px solid; color: #5cb85c; border-color: #5cb85c; }
+
+/* ── Privacy / Legal ────────────────────────────────────────────────── */
+.legal-tabs { display: flex; gap: 1px; background: var(--border); margin-bottom: 1px; }
+.legal-tab {
+  font-family: var(--mono); font-size: var(--text-xs); letter-spacing: 0.16em;
+  text-transform: uppercase; padding: 12px 24px; cursor: pointer;
+  background: var(--surface); color: var(--muted); border: none;
+  border-bottom: 2px solid transparent;
+}
+.legal-tab.active { color: var(--amber2); border-bottom-color: var(--amber2); background: #141c1f; }
+.legal-panel { display: none; }
+.legal-panel.active { display: block; }
+.legal-box {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: var(--space-10) var(--space-10); font-size: var(--text-sm); color: var(--muted); line-height: 1.8;
+}
+.legal-box h3 { font-family: var(--display); font-size: var(--text-lg); letter-spacing: 0.06em; color: var(--white); margin-bottom: var(--space-4); }
+.legal-box h4 { font-size: var(--text-sm); color: var(--white); margin: var(--space-6) 0 var(--space-2); }
+.legal-box a { color: var(--amber2); text-decoration: none; }
+.legal-box a:hover { text-decoration: underline; }
+
+/* ── Footer ────────────────────────────────────────────────────────── */
+footer { background: var(--panel); border-top: 1px solid var(--border); padding: var(--space-8) var(--space-8); }
+.footer-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-6);
+}
+.footer-logo { font-family: var(--display); font-size: 24px; letter-spacing: 0.1em; color: var(--white); opacity: 0.6; }
+.footer-info { font-family: var(--mono); font-size: var(--text-xs); letter-spacing: 0.15em; color: var(--muted); text-align: center; line-height: 2; text-transform: uppercase; }
+.footer-links { display: flex; gap: var(--space-6); }
+.footer-links a { font-family: var(--mono); font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.footer-links a:hover { color: var(--amber2); }
+
+/* ── Responsive ────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .header-inner { grid-template-columns: 1fr; text-align: center; gap: var(--space-4); }
+  .h-left, .h-right { text-align: center; }
+  .games-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar .stat-cell:nth-child(2) { border-right: none; }
+  .stats-bar .stat-cell:nth-child(3) { border-top: 1px solid var(--border); }
+  .stats-bar .stat-cell:nth-child(4) { border-top: 1px solid var(--border); }
+  .support-grid { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+  main { padding: var(--space-10) var(--space-4) var(--space-16); }
+}
+@media (max-width: 520px) {
+  .nav-wrap { overflow-x: auto; padding: 0 var(--space-4); }
+  .status-row { grid-template-columns: auto 1fr auto; }
+  .status-since { display: none; }
+  .legal-box { padding: var(--space-6); }
+}
 </style>
 </head>
 <body>
 
+<!-- ── Header ──────────────────────────────────────────────────────── -->
 <header>
   <div class="header-inner">
     <div class="h-left">
-      <strong>LSC Support Command</strong>
-      PLATFORM: IOS &nbsp;|&nbsp; VERSION: 1.0<br>
-      REGION: WORLDWIDE
+      <strong>Paulus Games Studio</strong>
+      PLATFORM: IOS &nbsp;|&nbsp; REGION: WORLDWIDE<br>
+      GENRE: ACTION · RPG · STRATEGY
     </div>
+
     <div class="logo-center">
-      <svg class="shield" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="35,4 64,16 64,38 35,66 6,38 6,16" fill="none" stroke="#c97d20" stroke-width="2"/>
-        <polygon points="35,10 58,20 58,37 35,60 12,37 12,20" fill="none" stroke="#5c6e30" stroke-width="1" stroke-dasharray="3,3"/>
-        <line x1="35" y1="10" x2="35" y2="60" stroke="#c97d20" stroke-width="1" opacity="0.4"/>
-        <line x1="12" y1="28" x2="58" y2="28" stroke="#c97d20" stroke-width="1" opacity="0.4"/>
-        <circle cx="35" cy="35" r="6" fill="none" stroke="#e99b38" stroke-width="1.5"/>
-        <circle cx="35" cy="35" r="2" fill="#e99b38"/>
-        <line x1="35" y1="26" x2="35" y2="29" stroke="#e99b38" stroke-width="1.5"/>
-        <line x1="35" y1="41" x2="35" y2="44" stroke="#e99b38" stroke-width="1.5"/>
-        <line x1="26" y1="35" x2="29" y2="35" stroke="#e99b38" stroke-width="1.5"/>
-        <line x1="41" y1="35" x2="44" y2="35" stroke="#e99b38" stroke-width="1.5"/>
-        <polyline points="6,24 6,16 14,16" stroke="#7d9040" stroke-width="1.5" fill="none"/>
-        <polyline points="56,16 64,16 64,24" stroke="#7d9040" stroke-width="1.5" fill="none"/>
-        <polyline points="6,38 6,46" stroke="#7d9040" stroke-width="1.5" fill="none"/>
-        <polyline points="64,38 64,46" stroke="#7d9040" stroke-width="1.5" fill="none"/>
+      <!-- Studio SVG Logo -->
+      <svg class="studio-logo" width="72" height="72" viewBox="0 0 72 72" fill="none" aria-label="Paulus Games logo" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer hexagon -->
+        <polygon points="36,4 66,20 66,52 36,68 6,52 6,20" fill="none" stroke="#c97d20" stroke-width="1.5"/>
+        <!-- Inner hexagon -->
+        <polygon points="36,12 58,24 58,48 36,60 14,48 14,24" fill="none" stroke="#5c6e30" stroke-width="1" stroke-dasharray="4,3"/>
+        <!-- Cross-hairs -->
+        <line x1="36" y1="12" x2="36" y2="60" stroke="#c97d20" stroke-width="0.75" opacity="0.3"/>
+        <line x1="14" y1="36" x2="58" y2="36" stroke="#c97d20" stroke-width="0.75" opacity="0.3"/>
+        <!-- P letterform (center) -->
+        <path d="M28 44V28h8a6 6 0 0 1 0 12h-8" stroke="#e99b38" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <!-- Corner brackets -->
+        <polyline points="6,26 6,20 12,20" stroke="#7d9040" stroke-width="1.5" fill="none"/>
+        <polyline points="60,20 66,20 66,26" stroke="#7d9040" stroke-width="1.5" fill="none"/>
+        <polyline points="6,46 6,52 12,52" stroke="#7d9040" stroke-width="1.5" fill="none"/>
+        <polyline points="60,52 66,52 66,46" stroke="#7d9040" stroke-width="1.5" fill="none"/>
       </svg>
-      <div class="game-title">LAST STAND<br>COMMAND</div>
-      <div class="game-sub">Support Operations</div>
+      <div class="studio-name">PAULUS<br>GAMES</div>
+      <div class="studio-sub">Mobile Games Studio</div>
     </div>
+
     <div class="h-right">
-      <span class="online">Systems Online</span><br>
-      Response Time: &lt; 24 hrs<br>
-      iOS Support Active<br>
-      App Store Listed
+      <span class="online">Studio Active</span><br>
+      Games on iOS App Store<br>
+      Support: &lt; 24 hrs<br>
+      Toledo, Ohio, US
     </div>
   </div>
 </header>
 
+<!-- ── Ticker ──────────────────────────────────────────────────────── -->
 <div class="ticker-bar">
   <div class="ticker-track">
-    ⬥&nbsp; WELCOME TO LAST STAND COMMAND SUPPORT &nbsp;⬥&nbsp; ALL SYSTEMS OPERATIONAL &nbsp;⬥&nbsp; RESPONSE TIME UNDER 24 HOURS &nbsp;⬥&nbsp; AVAILABLE ON THE IOS APP STORE &nbsp;⬥&nbsp; THANK YOU FOR PLAYING &nbsp;⬥&nbsp; WELCOME TO LAST STAND COMMAND SUPPORT &nbsp;⬥&nbsp; ALL SYSTEMS OPERATIONAL &nbsp;⬥&nbsp; RESPONSE TIME UNDER 24 HOURS &nbsp;⬥&nbsp; AVAILABLE ON THE IOS APP STORE &nbsp;⬥&nbsp; THANK YOU FOR PLAYING &nbsp;⬥&nbsp;
+    ⬥&nbsp; PAULUS GAMES — INDIE MOBILE STUDIO &nbsp;⬥&nbsp; LAST STAND COMMAND — AVAILABLE NOW ON IOS &nbsp;⬥&nbsp; GOD PRODIGY — COMING SOON &nbsp;⬥&nbsp; BUILT FOR PLAYERS WHO WANT DEPTH &nbsp;⬥&nbsp; SUPPORT RESPONSE UNDER 24 HOURS &nbsp;⬥&nbsp; PAULUS GAMES — INDIE MOBILE STUDIO &nbsp;⬥&nbsp; LAST STAND COMMAND — AVAILABLE NOW ON IOS &nbsp;⬥&nbsp; GOD PRODIGY — COMING SOON &nbsp;⬥&nbsp; BUILT FOR PLAYERS WHO WANT DEPTH &nbsp;⬥&nbsp; SUPPORT RESPONSE UNDER 24 HOURS &nbsp;⬥&nbsp;
   </div>
 </div>
 
+<!-- ── Nav ─────────────────────────────────────────────────────────── -->
 <nav>
   <div class="nav-wrap">
-    <a href="#quick-help" class="active">Quick Help</a>
+    <a href="#games" class="active">Games</a>
+    <div class="nav-divider"></div>
+    <a href="#support">Support</a>
     <div class="nav-divider"></div>
     <a href="#faq">FAQ</a>
     <div class="nav-divider"></div>
-    <a href="#status">System Status</a>
-    <div class="nav-divider"></div>
-    <a href="#contact">Contact</a>
+    <a href="#status">Status</a>
     <div class="nav-divider"></div>
     <a href="#privacy">Privacy</a>
   </div>
@@ -617,167 +540,352 @@
 
 <main>
 
-  <section class="section" id="quick-help">
-    <div class="eyebrow">Mission Briefing</div>
-    <h2>How Can We Help?</h2>
-    <div class="quick-grid">
-      <a class="quick-card" href="#faq">
-        <span class="qc-icon">📖</span>
-        <div class="qc-label">FAQ</div>
-        <div class="qc-desc">Common questions about gameplay, purchases & accounts</div>
-      </a>
-      <a class="quick-card" href="#contact">
-        <span class="qc-icon">📡</span>
-        <div class="qc-label">Contact Us</div>
-        <div class="qc-desc">Reach our support team directly by email</div>
-      </a>
-      <a class="quick-card" href="#status">
-        <span class="qc-icon">🛰️</span>
-        <div class="qc-label">System Status</div>
-        <div class="qc-desc">Check for known issues and ongoing investigations</div>
-      </a>
-      <a class="quick-card" href="https://support.apple.com/billing" target="_blank">
-        <span class="qc-icon">💳</span>
-        <div class="qc-label">Billing</div>
-        <div class="qc-desc">All purchases are handled securely via Apple's App Store</div>
-      </a>
+  <!-- ── Studio Stats ──────────────────────────────────────────────── -->
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <div class="stat-value"><span class="stat-accent">2</span></div>
+      <div class="stat-label">Games Released</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value"><span class="stat-accent">iOS</span></div>
+      <div class="stat-label">Platform</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value"><span class="stat-accent">&lt;24h</span></div>
+      <div class="stat-label">Support Response</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-value"><span class="stat-accent">∞</span></div>
+      <div class="stat-label">Hours of Gameplay</div>
+    </div>
+  </div>
+
+  <!-- ── Games ─────────────────────────────────────────────────────── -->
+  <section class="section" id="games">
+    <div class="eyebrow">The Arsenal</div>
+    <h2 class="section-title">Our Games</h2>
+
+    <div class="games-grid">
+
+      <!-- Last Stand Command -->
+      <div class="game-card">
+        <div class="game-card-banner game-card-banner-lsc">
+          <div class="banner-tactical"></div>
+          <div class="game-icon-wrap">
+            <div class="game-icon-placeholder game-icon-lsc">🛡️</div>
+          </div>
+        </div>
+        <div class="game-card-body">
+          <div class="game-status-row">
+            <span class="game-badge badge-live">● Live</span>
+            <span class="game-badge badge-genre">Strategy · Defense</span>
+          </div>
+          <div class="game-title">LAST STAND COMMAND</div>
+          <div class="game-tagline">Hold the Line at All Costs</div>
+          <p class="game-desc">
+            A hardcore tower-defense strategy game where every placement decision matters.
+            Command your forces, fortify your positions, and repel relentless enemy waves.
+            Built for players who want depth, not just spectacle.
+          </p>
+          <div class="game-features">
+            <span class="feature-pill">Tower Defense</span>
+            <span class="feature-pill">Strategic Placement</span>
+            <span class="feature-pill">Wave Survival</span>
+            <span class="feature-pill">iOS Exclusive</span>
+          </div>
+          <div class="game-actions">
+            <a class="btn btn-solid" href="https://apps.apple.com" target="_blank">▶ App Store</a>
+            <a class="btn btn-ghost" href="last-stand-command/index.html">Support →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- God Prodigy -->
+      <div class="game-card game-card-gp">
+        <div class="game-card-banner game-card-banner-gp">
+          <div class="banner-stars" id="starfield"></div>
+          <div class="game-icon-wrap">
+            <img src="https://raw.githubusercontent.com/JPaulus04/God_Prodigy_App/main/AppIcon_1024.png"
+                 alt="God Prodigy icon"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+            <div class="game-icon-placeholder game-icon-gp" style="display:none">👑</div>
+          </div>
+        </div>
+        <div class="game-card-body">
+          <div class="game-status-row">
+            <span class="game-badge badge-coming">⏳ Coming Soon</span>
+            <span class="game-badge badge-genre">Action RPG</span>
+          </div>
+          <div class="game-title">GOD PRODIGY</div>
+          <div class="game-tagline">Ascend. Prestige. Transcend.</div>
+          <p class="game-desc">
+            An open-world action RPG where you battle 10 Elemental Gods across sprawling realms.
+            Forge legendary weapons, master prestige classes — Warrior, Mage, Assassin, God —
+            and hunt down godkiller relics that bend the rules of combat. Depth-first, grind-free.
+          </p>
+          <div class="game-features">
+            <span class="feature-pill">Open World</span>
+            <span class="feature-pill">10 Bosses</span>
+            <span class="feature-pill">Prestige System</span>
+            <span class="feature-pill">Godkiller Weapons</span>
+            <span class="feature-pill">Legacy Armory</span>
+          </div>
+          <div class="game-actions">
+            <a class="btn btn-solid" href="https://apps.apple.com" target="_blank">Coming to App Store</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- ── Support ────────────────────────────────────────────────────── -->
+  <section class="section" id="support">
+    <div class="eyebrow">Operations</div>
+    <h2 class="section-title">Support</h2>
+
+    <div class="support-grid">
+      <div class="support-card">
+        <div class="support-card-icon">🛡️</div>
+        <h3>Last Stand Command</h3>
+        <p>Purchase issues, crashes, progress loss, restore purchases, and general gameplay help for Last Stand Command.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-solid" href="last-stand-command/index.html">LSC Support Page</a>
+          <a class="btn btn-ghost" href="https://tally.so/r/eqLrR0" target="_blank">Send Message →</a>
+        </div>
+      </div>
+      <div class="support-card gp-card">
+        <div class="support-card-icon">👑</div>
+        <h3>God Prodigy</h3>
+        <p>Pre-release inquiries, beta feedback, and general questions about God Prodigy. Full support launches with the game.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn-ghost" style="border-color:var(--gold);color:var(--gold);" href="https://tally.so/r/eqLrR0" target="_blank">Contact Us →</a>
+          <a class="btn btn-ghost" href="https://reportaproblem.apple.com" target="_blank">Apple Billing →</a>
+        </div>
+      </div>
+      <div class="support-card" style="grid-column:1/-1;">
+        <div class="support-card-icon">🍎</div>
+        <h3>App Store Billing &amp; Refunds</h3>
+        <p>All purchases are processed securely by Apple through the App Store. For billing disputes or refund requests, Apple's support team handles these directly. We do not have access to payment information.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn" href="https://reportaproblem.apple.com" target="_blank">Report a Problem →</a>
+          <a class="btn btn-ghost" href="https://support.apple.com/billing" target="_blank">Apple Billing Help →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────────── -->
   <section class="section" id="faq">
     <div class="eyebrow">Intelligence Files</div>
-    <h2>Frequently Asked Questions</h2>
+    <h2 class="section-title">Frequently Asked Questions</h2>
     <div class="faq-list">
 
       <details open>
-        <summary><span class="faq-num">01</span>How do I restore my purchases after reinstalling the game?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">Open Last Stand Command and navigate to Settings → Store. Tap <strong>Restore Purchases</strong>. Make sure you are signed in to the same Apple ID used for the original purchase. Your items should restore within a few seconds. If they don't appear, force-close the app, reopen it, and try again.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-lsc">LSC</span>
+          How do I restore purchases after reinstalling Last Stand Command?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">Open Last Stand Command and navigate to <strong>Settings → Store</strong>. Tap <strong>Restore Purchases</strong>. Make sure you're signed in to the same Apple ID used for the original purchase. If items don't appear, force-close the app, reopen, and try again.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">02</span>The game crashes on launch — what should I do?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">First, make sure you're running the latest version of Last Stand Command from the App Store. Fully close the app and relaunch. If the problem persists, try restarting your device. If crashes continue, please contact us with your device model and iOS version.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-lsc">LSC</span>
+          The game crashes on launch — what should I do?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">Make sure you're running the latest App Store version. Fully close and relaunch the app. If it persists, restart your device. If crashes continue, contact us with your device model and iOS version so we can investigate.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">03</span>I was charged but didn't receive my in-app purchase. What now?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">First, use the Restore Purchases option in Settings → Store. All transactions go through Apple — if the issue persists, please report it at <strong>reportaproblem.apple.com</strong> with your order ID. You can also contact us and we'll help resolve it.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-lsc">LSC</span>
+          I was charged but didn't receive my in-app purchase.
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">First try <strong>Restore Purchases</strong> in Settings → Store. All transactions are processed by Apple. If the issue persists, visit <strong>reportaproblem.apple.com</strong> with your order ID. You can also contact us directly and we'll help resolve it.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">04</span>My progress was lost. Can it be recovered?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">If you had iCloud sync enabled, your progress may be stored in the cloud — sign in with the same Apple ID and re-enable iCloud in the game settings. If iCloud was not enabled, progress stored locally may not be recoverable after an uninstall. We strongly recommend enabling iCloud backup going forward.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-lsc">LSC</span>
+          My progress was lost. Can it be recovered?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">If iCloud sync was enabled, your progress may be stored — sign in with the same Apple ID and re-enable iCloud in game settings. Progress stored only locally may not be recoverable after an uninstall. We strongly recommend enabling iCloud backup.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">05</span>How do I turn off notifications?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">Go to your device's <strong>Settings → Notifications → Last Stand Command</strong> and toggle off Allow Notifications. You can also manage notification preferences from within the game's Settings menu.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-gp">GP</span>
+          When does God Prodigy release?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">God Prodigy is currently in final development and approaching App Store submission. Release is coming soon. Follow this page for updates — the game card above will update when it's live.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">06</span>Is an internet connection required to play?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">Last Stand Command supports offline play for most modes. An internet connection is required for leaderboard updates, cloud saving, and online features. Some content may be temporarily unavailable without a connection.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-gp">GP</span>
+          What is the prestige system in God Prodigy?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">After defeating all 10 Elemental Gods, you can Prestige — resetting your run but choosing a new class: <strong>Warrior</strong> (DEF + HP), <strong>Mage</strong> (XP + DEF pierce), <strong>Assassin</strong> (speed + crit), or <strong>God</strong> (all bonuses stacked). Your Legacy Armory weapons carry over permanently across every prestige.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">07</span>Does the game collect personal data?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">We collect only minimal data needed to operate the game (such as anonymous crash reports and game progress). We do not sell your data to third parties. Please see our Privacy Policy below for full details.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-gp">GP</span>
+          What are Godkiller weapons?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">Godkiller weapons are god-tier relics forged from dungeon fragments in the Legacy Armory. Three exist: <strong>Soulbreaker</strong> (15% lifesteal on every hit), <strong>Voidpiercer</strong> (ignores all enemy DEF), and <strong>Godsplitter</strong> (AoE stun every swing). Once unlocked, they stay in your Legacy Armory across all future playthroughs.</div>
       </details>
 
       <details>
-        <summary><span class="faq-num">08</span>How do I request a refund?<span class="faq-chevron">›</span></summary>
-        <div class="faq-body">All refund requests must go through Apple. Visit <strong>reportaproblem.apple.com</strong>, sign in with your Apple ID, find the transaction, and select "Request a Refund." Apple will review and respond within a few days.</div>
+        <summary>
+          <span class="faq-game-badge faq-game-lsc">LSC</span>
+          <span class="faq-game-badge faq-game-gp" style="margin-left:4px;">GP</span>
+          Does Paulus Games collect personal data?
+          <span class="faq-chevron">›</span>
+        </summary>
+        <div class="faq-body">We collect only minimal anonymous data needed to operate our games (crash reports, anonymous session data). We do not sell your data to third parties. See the Privacy section below for full details on each game.</div>
       </details>
 
     </div>
   </section>
 
+  <!-- ── System Status ──────────────────────────────────────────────── -->
   <section class="section" id="status">
     <div class="eyebrow">Operational Status</div>
-    <h2>System Status</h2>
+    <h2 class="section-title">System Status</h2>
     <div class="status-board">
       <div class="status-header">
         <span class="status-title">// Live Status Board</span>
-        <span class="all-clear">● All Core Systems Operational</span>
+        <span class="all-clear">● All Systems Operational</span>
       </div>
-      <div class="status-row"><span class="status-name">Game Servers</span><span class="status-since">Updated today</span><span class="badge badge-ok">Operational</span></div>
-      <div class="status-row"><span class="status-name">In-App Purchases</span><span class="status-since">Updated today</span><span class="badge badge-ok">Operational</span></div>
-      <div class="status-row"><span class="status-name">iCloud Save Sync</span><span class="status-since">Updated today</span><span class="badge badge-ok">Operational</span></div>
-      <div class="status-row"><span class="status-name">Leaderboards</span><span class="status-since">Updated today</span><span class="badge badge-ok">Operational</span></div>
-      <div class="status-row"><span class="status-name">Push Notifications</span><span class="status-since">Updated today</span><span class="badge badge-ok">Operational</span></div>
-      <div class="status-row"><span class="status-name">Support Response Queue</span><span class="status-since">Updated today</span><span class="badge badge-ok">Operational</span></div>
+      <div class="status-row"><span class="status-game-dot dot-lsc"></span><span class="status-name">Last Stand Command — App Store</span><span class="status-since">Updated today</span><span class="badge-ok">Operational</span></div>
+      <div class="status-row"><span class="status-game-dot dot-lsc"></span><span class="status-name">Last Stand Command — In-App Purchases</span><span class="status-since">Updated today</span><span class="badge-ok">Operational</span></div>
+      <div class="status-row"><span class="status-game-dot dot-lsc"></span><span class="status-name">Last Stand Command — iCloud Save Sync</span><span class="status-since">Updated today</span><span class="badge-ok">Operational</span></div>
+      <div class="status-row"><span class="status-game-dot dot-gp"></span><span class="status-name">God Prodigy — Build Pipeline</span><span class="status-since">Updated today</span><span class="badge-ok">Active</span></div>
+      <div class="status-row"><span class="status-game-dot dot-gp"></span><span class="status-name">God Prodigy — App Store Submission</span><span class="status-since">Pending</span><span style="font-family:var(--mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;padding:3px 10px;border:1px solid;color:var(--amber);border-color:var(--amber);">Upcoming</span></div>
+      <div class="status-row"><span class="status-game-dot dot-lsc"></span><span class="status-name">Support Queue</span><span class="status-since">Updated today</span><span class="badge-ok">Operational</span></div>
     </div>
   </section>
 
-  <section class="section" id="contact">
-    <div class="eyebrow">Direct Line</div>
-    <h2>Contact Support</h2>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <span class="cc-icon">✉️</span>
-        <h3>Email Support</h3>
-        <p>Our team responds to all inquiries within 24 hours. Please include your device model, iOS version, and a description of the issue for the fastest resolution.</p>
-        <a class="btn btn-solid" href="https://tally.so/r/eqLrR0" target="_blank">Send a Message</a>
-      </div>
-      <div class="contact-card">
-        <span class="cc-icon">🍎</span>
-        <h3>App Store Support</h3>
-        <p>For billing disputes, refund requests, or account issues, Apple's support team can assist directly. All purchases are processed through the App Store.</p>
-        <a class="btn" href="https://reportaproblem.apple.com" target="_blank">Apple Support →</a>
-      </div>
-    </div>
-    <div style="margin-top:20px; background:var(--surface); border:1px solid var(--border); padding:20px 24px;">
-      <p style="font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:0.1em;">
-        ⚑ &nbsp; When contacting support, please include: <strong style="color:var(--text);">your device model</strong>, <strong style="color:var(--text);">iOS version</strong>, <strong style="color:var(--text);">app version</strong>, and a brief description of the issue.
-      </p>
-    </div>
-  </section>
-
+  <!-- ── Privacy ───────────────────────────────────────────────────── -->
   <section class="section" id="privacy">
-    <div class="eyebrow">Legal & Privacy</div>
-    <h2>Privacy Policy</h2>
-    <div class="legal-box">
-      <h3>Your Privacy Matters</h3>
-      <p><em>Last updated: 2025</em></p><br>
-      <p><strong style="color:var(--text);">Information We Collect</strong><br>Last Stand Command collects anonymous gameplay data (level progress, session length) and device information (model, OS version) solely for improving the game and diagnosing crashes. We do not collect names, email addresses, or personally identifiable information through the game.</p><br>
-      <p><strong style="color:var(--text);">In-App Purchases</strong><br>All purchases are processed by Apple through the App Store. We do not store or have access to your payment information.</p><br>
-      <p><strong style="color:var(--text);">Third-Party Services</strong><br>We may use Apple's GameCenter and iCloud services for leaderboards and cloud saves. Their respective privacy policies apply to those services.</p><br>
-      <p><strong style="color:var(--text);">Data Retention & Deletion</strong><br>Anonymous analytics data is retained for up to 12 months. You may request deletion of any data by contacting us via the support form on this page.</p><br>
-      <p><strong style="color:var(--text);">Children's Privacy</strong><br>This game is not directed at children under 13. We do not knowingly collect personal information from children.</p><br>
-      <p><strong style="color:var(--text);">Contact</strong><br>For privacy-related questions, please use the <a href="https://tally.so/r/eqLrR0" target="_blank">support form</a> on this page.</p>
+    <div class="eyebrow">Legal &amp; Privacy</div>
+    <h2 class="section-title">Privacy Policy</h2>
+
+    <div class="legal-tabs">
+      <button class="legal-tab active" onclick="showPrivacy('lsc',this)">Last Stand Command</button>
+      <button class="legal-tab" onclick="showPrivacy('gp',this)">God Prodigy</button>
+    </div>
+
+    <div id="privacy-lsc" class="legal-panel active">
+      <div class="legal-box">
+        <h3>Last Stand Command — Privacy Policy</h3>
+        <p><em>Last updated: 2025</em></p>
+        <h4>Information We Collect</h4>
+        <p>Last Stand Command collects anonymous gameplay data (level progress, session length) and device information (model, OS version) solely for improving the game and diagnosing crashes. We do not collect names, email addresses, or personally identifiable information through the game.</p>
+        <h4>In-App Purchases</h4>
+        <p>All purchases are processed by Apple through the App Store. We do not store or have access to your payment information.</p>
+        <h4>Third-Party Services</h4>
+        <p>We may use Apple's GameCenter and iCloud services for leaderboards and cloud saves. Their respective privacy policies apply to those services.</p>
+        <h4>Data Retention &amp; Deletion</h4>
+        <p>Anonymous analytics data is retained for up to 12 months. You may request deletion of any data by contacting us via the <a href="https://tally.so/r/eqLrR0" target="_blank">support form</a>.</p>
+        <h4>Children's Privacy</h4>
+        <p>This game is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+        <h4>Contact</h4>
+        <p>For privacy questions, please use the <a href="https://tally.so/r/eqLrR0" target="_blank">support form</a> on this page.</p>
+      </div>
+    </div>
+
+    <div id="privacy-gp" class="legal-panel">
+      <div class="legal-box">
+        <h3>God Prodigy — Privacy Policy</h3>
+        <p><em>Last updated: 2026</em></p>
+        <h4>Information We Collect</h4>
+        <p>God Prodigy stores game progress locally on your device using your device's local storage. No personal information is transmitted to our servers. Anonymous crash diagnostics may be collected via Apple's standard mechanisms.</p>
+        <h4>In-App Purchases</h4>
+        <p>All purchases are processed by Apple through the App Store. We do not store or have access to your payment information. IAP billing is handled entirely by Apple's StoreKit framework.</p>
+        <h4>Local Storage</h4>
+        <p>Game save data (progress, inventory, settings) is stored locally on your device. This data does not leave your device and is not accessible to us. Uninstalling the app removes all local save data.</p>
+        <h4>Data Retention &amp; Deletion</h4>
+        <p>We do not retain personal data on our servers. Local game data can be deleted at any time by uninstalling the app. For any privacy questions, contact us via the <a href="https://tally.so/r/eqLrR0" target="_blank">support form</a>.</p>
+        <h4>Children's Privacy</h4>
+        <p>This game is not directed at children under 13. We do not knowingly collect personal information from children.</p>
+        <h4>Contact</h4>
+        <p>For privacy questions, please use the <a href="https://tally.so/r/eqLrR0" target="_blank">support form</a>.</p>
+      </div>
     </div>
   </section>
 
 </main>
 
+<!-- ── Footer ──────────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo">LSC</div>
+    <div class="footer-logo">PG</div>
     <div class="footer-info">
-      © 2025 Last Stand Command &nbsp;|&nbsp; All Rights Reserved<br>
-      Available on the iOS App Store &nbsp;|&nbsp; Made for mobile commanders
+      © 2026 Paulus Games &nbsp;|&nbsp; All Rights Reserved<br>
+      Toledo, Ohio, US &nbsp;|&nbsp; iOS App Store
     </div>
     <div class="footer-links">
+      <a href="#games">Games</a>
       <a href="#privacy">Privacy</a>
-      <a href="#contact">Contact</a>
+      <a href="#support">Support</a>
       <a href="https://reportaproblem.apple.com" target="_blank">Refunds</a>
     </div>
   </div>
 </footer>
 
 <script>
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('nav a');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
-        });
-      }
-    });
-  }, { rootMargin: '-30% 0px -60% 0px' });
-  sections.forEach(s => observer.observe(s));
+// ── Nav scroll spy ──────────────────────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('nav a');
+const observer  = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+
+// ── Privacy tab switcher ────────────────────────────────────────────
+function showPrivacy(id, btn) {
+  document.querySelectorAll('.legal-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.legal-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('privacy-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── God Prodigy star field ──────────────────────────────────────────
+(function() {
+  const container = document.getElementById('starfield');
+  if (!container) return;
+  for (let i = 0; i < 55; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%; top:${Math.random()*100}%;
+      --dur:${(Math.random()*3+1.5).toFixed(1)}s;
+      --delay:${(Math.random()*3).toFixed(1)}s;
+      --hi:${(Math.random()*0.5+0.5).toFixed(2)};
+      --lo:${(Math.random()*0.2).toFixed(2)};
+      opacity:0.6;
+    `;
+    container.appendChild(s);
+  }
+})();
 </script>
 
 </body>
