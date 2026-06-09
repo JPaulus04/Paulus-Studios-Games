@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — God Prodigy | Paulus Studios</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:        #0d0d1a;
+      --surface:   #13132b;
+      --border:    #2a2a4a;
+      --gold:      #d4af37;
+      --gold-dim:  #a8892a;
+      --text:      #d8d8e8;
+      --muted:     #888899;
+      --link:      #7b9cff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      padding: 0;
+    }
+
+    header {
+      background: linear-gradient(180deg, #1a1a38 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    header .game-name {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: clamp(26px, 5vw, 38px);
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 10px;
+    }
+
+    header .meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* Table of contents */
+    nav.toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 56px;
+    }
+
+    nav.toc h2 {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 16px;
+    }
+
+    nav.toc ol {
+      padding-left: 20px;
+    }
+
+    nav.toc ol li {
+      margin-bottom: 6px;
+    }
+
+    nav.toc ol li a {
+      color: var(--link);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    nav.toc ol li a:hover {
+      color: var(--gold);
+      text-decoration: underline;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 56px;
+    }
+
+    section h2 {
+      font-size: 22px;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section h3 {
+      font-size: 16px;
+      color: var(--gold-dim);
+      font-weight: 600;
+      margin: 28px 0 10px;
+    }
+
+    section p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    section ul {
+      margin: 0 0 16px 20px;
+    }
+
+    section ul li {
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    /* Callout box */
+    .callout {
+      background: var(--surface);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 22px;
+      margin: 24px 0;
+    }
+
+    .callout p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    .callout strong {
+      color: var(--gold);
+    }
+
+    /* Summary tag */
+    .data-tag {
+      display: inline-block;
+      background: #1c1c3a;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 13px;
+      color: var(--gold-dim);
+      margin: 6px 4px 6px 0;
+    }
+
+    /* Third-party card */
+    .third-party-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+
+    .third-party-card h3 {
+      margin-top: 0;
+      color: var(--gold);
+      font-size: 17px;
+    }
+
+    .third-party-card p {
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .third-party-card a {
+      color: var(--link);
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .third-party-card a:hover {
+      color: var(--gold);
+    }
+
+    /* Contact */
+    .contact-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 32px;
+    }
+
+    .contact-block p {
+      margin-bottom: 10px;
+    }
+
+    .contact-block a {
+      color: var(--link);
+    }
+
+    .contact-block a:hover {
+      color: var(--gold);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav.toc { padding: 20px; }
+      section h2 { font-size: 19px; }
+      .third-party-card, .contact-block { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="game-name">God Prodigy &mdash; Paulus Studios</p>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective Date: June 2026 &nbsp;&bull;&nbsp; Last Updated: June 2026</p>
+  </header>
+
+  <main>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#data-collected">Data We Collect</a></li>
+        <li><a href="#local-storage">Local Save Data</a></li>
+        <li><a href="#third-party">Third-Party Services</a></li>
+        <li><a href="#childrens-privacy">Children's Privacy</a></li>
+        <li><a href="#your-rights">Your Rights</a></li>
+        <li><a href="#changes">Changes to This Policy</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1. Introduction -->
+    <section id="introduction">
+      <h2>1. Introduction</h2>
+      <p>
+        Paulus Studios ("we," "our," or "us") operates <strong>God Prodigy</strong>, an iOS action RPG available on the Apple App Store. This Privacy Policy explains what information is collected when you play God Prodigy, how it is used, and what choices you have.
+      </p>
+      <p>
+        We built God Prodigy with a straightforward principle: your personal data is yours. We do not create accounts, do not collect personal information, and do not transmit your game data to any server we operate. This policy exists to be transparent about how the game works and which third-party tools touch your device.
+      </p>
+      <div class="callout">
+        <p><strong>Short version:</strong> Paulus Studios does not collect, store, or sell your personal information. Your game progress stays on your device. In-app purchases are handled entirely by Apple.</p>
+      </div>
+    </section>
+
+    <!-- 2. Data Collected -->
+    <section id="data-collected">
+      <h2>2. Data We Collect</h2>
+      <p>
+        <strong>Paulus Studios collects no personal data from players of God Prodigy.</strong>
+      </p>
+      <p>There is no:</p>
+      <ul>
+        <li>Account registration or login</li>
+        <li>Name, email address, or any contact information collected by us</li>
+        <li>Device identifiers collected or stored by us</li>
+        <li>Location data</li>
+        <li>Advertising identifiers (IDFA)</li>
+        <li>Behavioral analytics or usage telemetry sent to our servers</li>
+        <li>In-game chat or user-generated content</li>
+      </ul>
+      <p>
+        We do not run servers, databases, or back-end infrastructure that stores any player information.
+      </p>
+      <div class="callout">
+        <p>Apple may collect certain diagnostic and crash data as part of the iOS operating system and App Store framework, independent of God Prodigy. This is governed by <a href="https://www.apple.com/legal/privacy/" style="color: var(--link);">Apple's Privacy Policy</a>.</p>
+      </div>
+    </section>
+
+    <!-- 3. Local Save Data -->
+    <section id="local-storage">
+      <h2>3. Local Save Data</h2>
+      <p>
+        God Prodigy saves your game progress — including your character level, inventory, Stronghold upgrades, and Prestige status — using <strong>local device storage</strong>. This data:
+      </p>
+      <ul>
+        <li>Is stored only on your device</li>
+        <li>Is never transmitted to Paulus Studios or any external server</li>
+        <li>May be included in an iCloud or iTunes backup at iOS's discretion, under Apple's standard backup policy</li>
+        <li>Can be deleted by uninstalling the game</li>
+      </ul>
+      <p>
+        We do not have access to your save data and cannot recover it if it is lost.
+      </p>
+      <div style="margin-top: 16px;">
+        <span class="data-tag">Device-only storage</span>
+        <span class="data-tag">Never transmitted</span>
+        <span class="data-tag">No server sync</span>
+      </div>
+    </section>
+
+    <!-- 4. Third-Party Services -->
+    <section id="third-party">
+      <h2>4. Third-Party Services</h2>
+      <p>
+        God Prodigy integrates two third-party services for in-app purchases. We do not share any personal data with these services — we simply cannot, because we do not collect it. However, these services may collect their own data as described in their respective privacy policies.
+      </p>
+
+      <div class="third-party-card">
+        <h3>Apple In-App Purchases</h3>
+        <p>
+          Optional purchases in God Prodigy — including cosmetic skins, trail effects, resource packs, XP boosts, and the God Prodigy Pass — are processed entirely through Apple's App Store payment infrastructure.
+        </p>
+        <p>
+          Paulus Studios never sees, receives, or stores your payment information, billing details, or Apple ID. All transaction processing is handled by Apple under their terms.
+        </p>
+        <p>
+          <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple Privacy Policy &rarr;</a>
+        </p>
+      </div>
+
+      <div class="third-party-card">
+        <h3>RevenueCat</h3>
+        <p>
+          We use RevenueCat, an in-app subscription and purchase management SDK, to help verify and manage purchase states on your device (e.g., whether your God Prodigy Pass is active). RevenueCat may collect limited technical data as part of its operation, such as a pseudonymous device identifier and purchase status.
+        </p>
+        <p>
+          RevenueCat acts as a service provider in this context. We do not instruct RevenueCat to collect personal information beyond what is necessary for purchase verification. We do not receive any payment data through RevenueCat.
+        </p>
+        <p>
+          <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener noreferrer">RevenueCat Privacy Policy &rarr;</a>
+        </p>
+      </div>
+
+      <h3>Advertising and Analytics</h3>
+      <p>
+        God Prodigy contains <strong>no advertisements</strong> and uses <strong>no third-party analytics SDKs</strong>. There are no ad networks, no tracking pixels, and no behavioral profiling tools integrated into the game.
+      </p>
+    </section>
+
+    <!-- 5. Children's Privacy -->
+    <section id="childrens-privacy">
+      <h2>5. Children's Privacy</h2>
+      <p>
+        God Prodigy is rated <strong>9+</strong> on the Apple App Store and is designed to be appropriate for a broad audience, including players under the age of 13.
+      </p>
+      <p>
+        We are committed to compliance with the Children's Online Privacy Protection Act (COPPA) and equivalent international regulations. Because Paulus Studios collects no personal information from any player — regardless of age — there is no personal data to collect, store, share, or delete from or about children.
+      </p>
+      <ul>
+        <li>No name, email, or contact information is ever requested or collected</li>
+        <li>No account creation is required to play</li>
+        <li>No behavioral tracking or profiling is performed on any user</li>
+        <li>In-app purchases require App Store authentication, which is controlled by the device account holder (typically a parent)</li>
+      </ul>
+      <p>
+        Parents and guardians can use Apple's Screen Time and Family Sharing features to manage in-app purchase permissions for children. If you believe your child has been subject to any privacy concern in connection with this game, please contact us using the details in Section 8.
+      </p>
+    </section>
+
+    <!-- 6. Your Rights -->
+    <section id="your-rights">
+      <h2>6. Your Rights</h2>
+      <p>
+        Because Paulus Studios does not collect personal data, there is no personal data stored by us to access, correct, export, or delete. If you are located in the European Economic Area (EEA), United Kingdom, California, or another jurisdiction with data privacy rights, those rights apply to any personal data that would be held about you — and since we hold none, there is nothing for us to act upon.
+      </p>
+      <p>
+        For data held by Apple or RevenueCat, please contact those companies directly using the links in Section 4.
+      </p>
+      <p>
+        To delete your local game data, uninstall God Prodigy from your device.
+      </p>
+    </section>
+
+    <!-- 7. Changes -->
+    <section id="changes">
+      <h2>7. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. If material changes are made — for example, if we add analytics or change how purchases are managed — we will update the "Last Updated" date at the top of this page and, where appropriate, notify users through the App Store update notes or in-game messaging.
+      </p>
+      <p>
+        Continued use of God Prodigy after any changes constitutes acceptance of the updated policy. We encourage you to review this page periodically.
+      </p>
+    </section>
+
+    <!-- 8. Contact -->
+    <section id="contact">
+      <h2>8. Contact Us</h2>
+      <div class="contact-block">
+        <p>If you have questions about this Privacy Policy or your experience with God Prodigy, please reach out:</p>
+        <p><strong>Email:</strong> <a href="mailto:josh@paulusstudios.com">josh@paulusstudios.com</a></p>
+        <p><strong>Company:</strong> Paulus Studios</p>
+        <p><strong>Location:</strong> Toledo, Ohio, United States</p>
+        <p><strong>Support &amp; Game Info:</strong> <a href="https://jpaulus04.github.io/Paulus-Studios-Games/" target="_blank" rel="noopener noreferrer">https://jpaulus04.github.io/Paulus-Studios-Games/</a></p>
+        <p style="margin-top: 16px; font-size: 14px; color: var(--muted);">
+          We aim to respond to all privacy inquiries within 14 business days.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Paulus Studios &mdash; God Prodigy &mdash; All rights reserved.</p>
+    <p style="margin-top: 8px;"><a href="https://jpaulus04.github.io/Paulus-Studios-Games/">paulusstudios.com</a></p>
+  </footer>
+
+</body>
+</html>
